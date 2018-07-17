@@ -10,11 +10,12 @@ import graphviz
 
 iris=load_iris()
 
+#create decision tree classifier and train on testing date
 df=pd.DataFrame(iris.data,columns=iris.feature_names)
-y=iris.target
 dtree=DecisionTreeClassifier()
-dtree.fit(df,y)
+dtree.fit(df,iris.target)
 
+#visualize the tree
 dot_data=StringIO()
 
 with open("iris_classifier.txt","w") as f:
@@ -22,5 +23,3 @@ with open("iris_classifier.txt","w") as f:
 
 with open("iris_classifer.dot","w") as f:
     f=export_graphviz(dtree,out_file=f,filled=True,feature_names=iris.feature_names, class_names=iris.target_names,rounded=True,impurity=False,special_characters=True)
-#graph=pydotplus.graph_from_dot_data(dot_data.getvalue())
-#graph.write_pdf("iris.pdf")
